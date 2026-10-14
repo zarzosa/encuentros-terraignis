@@ -47,7 +47,7 @@ const sectorLabels = new Map<string, string>(sectors.map((s) => [s.value, s.labe
 export async function listRegistrations(eventSlug: string): Promise<RegistrationRow[]> {
   const sql = getSql();
   // Fecha formateada en SQL y no con Date en JS: evita corrimientos de huso horario (lección de copat3D).
-  const rows = (await sql`
+  const rows = await sql<DbRow[]>`
     SELECT
       id, full_name, organization, role, sector, sector_other, city, region,
       country, email, phone, email_sent,
@@ -56,7 +56,7 @@ export async function listRegistrations(eventSlug: string): Promise<Registration
     FROM registrations
     WHERE event_slug = ${eventSlug}
     ORDER BY created_at DESC
-  `) as DbRow[];
+  `;
 
   const countryNames = new Intl.DisplayNames(["es"], { type: "region" });
 

@@ -19,7 +19,7 @@ export async function insertRegistration(
   const sql = getSql();
   const sectorOther = data.sector === "other" ? (data.sectorOther ?? null) : null;
 
-  const rows = await sql`
+  const rows = await sql<{ id: string }[]>`
     INSERT INTO registrations (
       event_slug, full_name, organization, role, sector, sector_other,
       city, region, country, email, phone,
@@ -34,7 +34,7 @@ export async function insertRegistration(
     RETURNING id
   `;
 
-  const [row] = rows as { id: string }[];
+  const [row] = rows;
   return row ? { status: "created", id: row.id } : { status: "duplicate" };
 }
 

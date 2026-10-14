@@ -1,8 +1,8 @@
-// Crea la tabla `registrations` en Neon a partir de db/schema.sql.
+// Crea la tabla `registrations` a partir de db/schema.sql.
 // Uso: npm run db:setup   (lee DATABASE_URL desde .env.local)
 import { readFile } from "node:fs/promises";
 
-import { neon } from "@neondatabase/serverless";
+import postgres from "postgres";
 
 const url = process.env.DATABASE_URL;
 if (!url) {
@@ -10,23 +10,17 @@ if (!url) {
   process.exit(1);
 }
 
-// Muestra el host (sin credenciales) para confirmar si es la rama de desarrollo o la de producción.
+// Muestra el host (sin credenciales) para confirmar contra qué base se aplica el esquema.
 console.log(`Base de datos: ${new URL(url).host}`);
 
-const sql = neon(url);
+const sql = postgres(url, { max: 1, onnotice: () => {} });
 const schema = await readFile(new URL("../db/schema.sql", import.meta.url), "utf8");
 
-// El driver HTTP ejecuta una sentencia por llamada.
-const statements = schema
-  .split("\n")
-  .filter((line) => !line.trim().startsWith("--"))
-  .join("\n")
-  .split(";")
-  .map((statement) => statement.trim())
-  .filter(Boolean);
-
-for (const statement of statements) {
-  await sql.query(statement);
+try {
+  // Protocolo simple: ejecuta todas las sentencias del archivo en una sola llamada.
+  await sql.unsafe(schema);
+  const [{ count }] = await sql`SELECT count(*)::int AS count FROM registrations`;
+  console.log(`Esquema aplicado. Inscripciones actuales: ${count}.`);
+} finally {
+  await sql.end();
 }
-
-console.log(`Esquema aplicado (${statements.length} sentencias).`);
