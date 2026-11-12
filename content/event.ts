@@ -1,6 +1,6 @@
 export type Partner = {
   name: string;
-  /** Logo oficial en versión negativa (para fondos oscuros), en /public. */
+  /** Logo oficial en /public: negativo para fondos oscuros; los auspiciantes, a color sobre blanco. */
   logo?: { src: string; width: number; height: number };
 };
 
@@ -22,6 +22,32 @@ export const logos = {
     height: 97,
   },
 } as const;
+
+/*
+ * Auspiciantes confirmados, en orden de jerarquía (pedido de la organización: no reordenar).
+ * Logos del archivo del diseñador (Sponsors_Web-TIE.ai), todos a la misma escala: width/height
+ * son los de cada mesa de trabajo y se usan para mantener esa proporción entre ellos.
+ * TotalEnergies exige fondo blanco: estos logos van solo en la franja blanca, nunca en fondos oscuros.
+ * El de TotalEnergies es PNG porque sus degradados no se exportan bien a SVG.
+ */
+export const sponsors = [
+  {
+    name: "TotalEnergies",
+    logo: { src: "/logos/auspiciantes/totalenergies.png", width: 190, height: 139 },
+  },
+  {
+    name: "Pan American Energy",
+    logo: { src: "/logos/auspiciantes/pan-american-energy.svg", width: 279, height: 116 },
+  },
+  {
+    name: "Equinor",
+    logo: { src: "/logos/auspiciantes/equinor.svg", width: 338, height: 138 },
+  },
+  {
+    name: "Velitec",
+    logo: { src: "/logos/auspiciantes/velitec.svg", width: 316, height: 43 },
+  },
+] satisfies Partner[];
 
 export const event = {
   slug: "cuencas-maduras",

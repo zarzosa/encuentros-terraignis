@@ -1,7 +1,9 @@
+import type { CSSProperties } from "react";
+
 import { StripeColumn } from "@/components/brand/stripes";
 import { SectionHeading } from "@/components/layout/section-heading";
 import { PartnerLogo } from "@/components/partners/partner-logo";
-import { event } from "@/content/event";
+import { event, sponsors } from "@/content/event";
 
 /*
  * Una sola franja (como el pie de la tapa del PDF) en lugar de dos cajas: fondo azul noche,
@@ -37,6 +39,27 @@ export function EventPartners() {
                     <PartnerLogo key={partner.name} partner={partner} className="h-16 sm:h-20" />
                   ))}
                 </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Auspiciantes a color sobre blanco (requisito de TotalEnergies). El ancho de cada logo
+            sale de su mesa de trabajo (--logo-w) para respetar las proporciones del diseñador. */}
+        <div className="surface-light relative mt-8 bg-white px-6 py-10 text-terra-ink sm:px-10 sm:py-12 lg:px-14">
+          <span aria-hidden="true" className="absolute -top-[11px] -left-[11px] size-4 bg-terra-orange" />
+          <h3 className="text-lg font-extralight tracking-wide uppercase">Auspician:</h3>
+          <ul className="mt-8 grid grid-cols-2 items-center gap-x-6 gap-y-10 lg:flex lg:items-stretch lg:gap-0 lg:divide-x lg:divide-terra-ink/40">
+            {sponsors.map((sponsor) => (
+              <li
+                key={sponsor.name}
+                style={{ "--logo-w": sponsor.logo.width } as CSSProperties}
+                className="flex items-center justify-center lg:flex-[var(--logo-w)_1_0%] lg:px-6 lg:py-3"
+              >
+                <PartnerLogo
+                  partner={sponsor}
+                  className="h-auto w-[calc(var(--logo-w)*0.45px)] sm:w-[calc(var(--logo-w)*0.6px)] lg:w-[calc(var(--logo-w)*0.7px)]"
+                />
               </li>
             ))}
           </ul>
