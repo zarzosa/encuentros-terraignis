@@ -29,6 +29,8 @@ export const logos = {
  * son los de cada mesa de trabajo y se usan para mantener esa proporción entre ellos.
  * TotalEnergies exige fondo blanco: estos logos van solo en la franja blanca, nunca en fondos oscuros.
  * El de TotalEnergies es PNG porque sus degradados no se exportan bien a SVG.
+ * El de Roch llegó aparte (LogoRoch 2026.pdf, vectores del PDF): su tamaño se ajustó a ojo
+ * para equilibrarlo con el resto, no sale de una mesa de trabajo.
  */
 export const sponsors = [
   {
@@ -42,6 +44,10 @@ export const sponsors = [
   {
     name: "Equinor",
     logo: { src: "/logos/auspiciantes/equinor.svg", width: 338, height: 138 },
+  },
+  {
+    name: "Roch",
+    logo: { src: "/logos/auspiciantes/roch.svg", width: 225, height: 72 },
   },
   {
     name: "Velitec",
@@ -86,6 +92,8 @@ export const event = {
     mapEmbedUrl:
       "https://www.google.com/maps?q=F%C3%A1brica%20de%20Talentos%2C%20Av.%20Maip%C3%BA%201255%2C%20Ushuaia%2C%20Tierra%20del%20Fuego%2C%20Argentina&z=16&hl=es&output=embed",
   },
+  /** PDF en /public que abre el botón "Ver programa" del hero (pedido de la organización). */
+  dossierUrl: "/docs/dossier-cuencas-maduras.pdf",
   organizer: "Terra Ignis Energía S.A.",
   partnerGroups: [
     {

@@ -54,7 +54,7 @@ export function EventPartners() {
               <li
                 key={sponsor.name}
                 style={{ "--logo-w": sponsor.logo.width } as CSSProperties}
-                className="flex items-center justify-center lg:flex-[var(--logo-w)_1_0%] lg:px-6 lg:py-3"
+                className="flex items-center justify-center max-lg:last:odd:col-span-2 lg:flex-[var(--logo-w)_1_0%] lg:px-6 lg:py-3"
               >
                 <PartnerLogo
                   partner={sponsor}

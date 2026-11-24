@@ -99,7 +99,9 @@ export function EventHero() {
             </Button>
             {/* En celular, link de texto para no sumar otro botón alto; desde sm, botón. */}
             <a
-              href="#programa"
+              href={event.dossierUrl}
+              target="_blank"
+              rel="noopener"
               className="py-1 text-base font-bold tracking-wide uppercase underline decoration-terra-orange decoration-2 underline-offset-[6px] sm:hidden"
             >
               Ver programa
@@ -110,7 +112,9 @@ export function EventHero() {
               size="cta"
               className="hidden h-[clamp(3rem,6.5svh,3.5rem)] sm:inline-flex"
             >
-              <a href="#programa">Ver programa</a>
+              <a href={event.dossierUrl} target="_blank" rel="noopener">
+                Ver programa
+              </a>
             </Button>
           </div>
         </div>
