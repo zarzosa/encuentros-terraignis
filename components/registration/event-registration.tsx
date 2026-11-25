@@ -4,10 +4,13 @@ import { StripeBand } from "@/components/brand/stripes";
 import { SectionHeading } from "@/components/layout/section-heading";
 import { RegistrationForm } from "@/components/registration/registration-form";
 import { event } from "@/content/event";
+import { registrationClosed } from "@/content/registration";
 import { getCountryOptions } from "@/lib/countries";
+import { cn } from "@/lib/utils";
 
+/* Con la inscripción cerrada la sección se mantiene (el QR impreso apunta a #inscripcion) y avisa. */
 export function EventRegistration() {
-  const countries = getCountryOptions("es");
+  const isOpen = event.registrationOpen;
 
   return (
     <section
@@ -16,15 +19,21 @@ export function EventRegistration() {
       className="surface-dark relative isolate scroll-mt-16 overflow-hidden terra-gradient text-white lg:scroll-mt-20"
     >
       <div className="container-page grid grid-cols-1 gap-12 pt-20 pb-16 lg:grid-cols-12 lg:gap-16 lg:pt-28 lg:pb-20">
-        <div className="lg:sticky lg:top-28 lg:col-span-5 lg:self-start">
+        <div className={isOpen ? "lg:sticky lg:top-28 lg:col-span-5 lg:self-start" : "lg:col-span-12"}>
           <SectionHeading
             tone="dark"
             eyebrow="Inscripción"
-            title="Confirmá tu participación"
+            title={isOpen ? "Confirmá tu participación" : registrationClosed.title}
             titleId="registration-title"
-            description={<p>Completá el formulario para registrarte en el Encuentro.</p>}
+            description={
+              <p>
+                {isOpen
+                  ? "Completá el formulario para registrarte en el Encuentro."
+                  : registrationClosed.text}
+              </p>
+            }
           />
-          <ul className="mt-10 space-y-6">
+          <ul className={cn("mt-10", isOpen ? "space-y-6" : "flex flex-col gap-6 lg:flex-row lg:gap-16")}>
             <li className="flex items-center gap-4">
               <CalendarDaysIcon
                 aria-hidden="true"
@@ -49,10 +58,12 @@ export function EventRegistration() {
           </ul>
         </div>
 
-        <div className="surface-light relative bg-white p-6 text-terra-ink shadow-[0_24px_60px_-30px_rgb(0_0_0/0.6)] sm:p-10 lg:col-span-7">
-          <span aria-hidden="true" className="absolute -top-[11px] -left-[11px] size-4 bg-terra-orange" />
-          <RegistrationForm countries={countries} />
-        </div>
+        {isOpen && (
+          <div className="surface-light relative bg-white p-6 text-terra-ink shadow-[0_24px_60px_-30px_rgb(0_0_0/0.6)] sm:p-10 lg:col-span-7">
+            <span aria-hidden="true" className="absolute -top-[11px] -left-[11px] size-4 bg-terra-orange" />
+            <RegistrationForm countries={getCountryOptions("es")} />
+          </div>
+        )}
       </div>
 
       <StripeBand className="block h-20 w-full sm:h-24 lg:h-28" />

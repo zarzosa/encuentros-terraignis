@@ -2,13 +2,19 @@ import { ArrowRightIcon } from "lucide-react";
 
 import { CornerBox } from "@/components/brand/corner-box";
 import { mainActions } from "@/content/navigation";
+import { cn } from "@/lib/utils";
 
 /* Accesos principales pedidos por la organización: Inscripción, Programa y Acompañan. */
 export function EventInfo() {
   return (
     <section aria-label="Accesos principales" className="bg-white">
       <div className="container-page py-16 lg:py-20">
-        <ul className="grid gap-8 md:grid-cols-3 md:gap-6">
+        <ul
+          className={cn(
+            "grid gap-8 md:gap-6",
+            mainActions.length === 3 ? "md:grid-cols-3" : "md:grid-cols-2"
+          )}
+        >
           {mainActions.map((action, index) => (
             <li key={action.href}>
               <CornerBox className="h-full transition-colors hover:border-terra-petrol">

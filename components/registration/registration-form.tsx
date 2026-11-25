@@ -67,13 +67,20 @@ export function RegistrationForm({ countries }: { countries: CountryOption[] }) 
       ? registrationMessages.duplicate
       : state.status === "rate_limited"
         ? registrationMessages.rateLimited
-        : state.status === "error"
-          ? registrationMessages.error
-          : null;
+        : state.status === "closed"
+          ? registrationMessages.closed
+          : state.status === "error"
+            ? registrationMessages.error
+            : null;
 
   useEffect(() => {
     if (state.status === "invalid") focusFirstError(state.fieldErrors);
-    if (state.status === "duplicate" || state.status === "rate_limited" || state.status === "error") {
+    if (
+      state.status === "duplicate" ||
+      state.status === "rate_limited" ||
+      state.status === "closed" ||
+      state.status === "error"
+    ) {
       statusRef.current?.focus();
     }
   }, [state]);

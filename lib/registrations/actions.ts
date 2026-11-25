@@ -21,6 +21,7 @@ export type RegistrationState =
   | { status: "invalid"; fieldErrors: FieldErrors }
   | { status: "duplicate" }
   | { status: "rate_limited" }
+  | { status: "closed" }
   | { status: "error" };
 
 /** Un humano tarda varios segundos en completar el formulario; un bot, milisegundos. */
@@ -36,6 +37,11 @@ export async function registerAction(
   _previous: RegistrationState,
   formData: FormData
 ): Promise<RegistrationState> {
+  // Ocultar el formulario no alcanza: el POST sigue siendo accesible.
+  if (!event.registrationOpen) {
+    return { status: "closed" };
+  }
+
   // Honeypot: un humano no ve ni completa este campo. Se simula éxito sin guardar.
   const honeypot = formData.get("website");
   if (typeof honeypot === "string" && honeypot.trim() !== "") {

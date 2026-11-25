@@ -120,11 +120,13 @@ export function MobileNav() {
             </ol>
           </nav>
 
-          <Button asChild variant="accent" size="cta" className="mt-9 w-full focus-visible:ring-white">
-            <a href="#inscripcion" onClick={(e) => navigate(e, "#inscripcion")}>
-              {ctaLabels.primary}
-            </a>
-          </Button>
+          {event.registrationOpen && (
+            <Button asChild variant="accent" size="cta" className="mt-9 w-full focus-visible:ring-white">
+              <a href="#inscripcion" onClick={(e) => navigate(e, "#inscripcion")}>
+                {ctaLabels.primary}
+              </a>
+            </Button>
+          )}
 
           <p className="mt-7 text-white/85">
             {event.dateLabel}

@@ -6,6 +6,7 @@ import { PartnerLogo } from "@/components/partners/partner-logo";
 import { Button } from "@/components/ui/button";
 import { event } from "@/content/event";
 import { ctaLabels } from "@/content/navigation";
+import { registrationClosed } from "@/content/registration";
 
 /*
  * Traducción web de la tapa del programa oficial.
@@ -91,12 +92,18 @@ export function EventHero() {
           </div>
 
           <div className="mt-[clamp(1rem,3svh,2.25rem)] flex flex-col items-start gap-x-3 gap-y-3 sm:flex-row sm:items-center">
-            <Button asChild variant="accent" size="cta" className="h-[clamp(3rem,6.5svh,3.5rem)] w-full sm:w-auto">
-              <a href="#inscripcion">
-                {ctaLabels.primary}
-                <ArrowRightIcon aria-hidden="true" />
-              </a>
-            </Button>
+            {event.registrationOpen ? (
+              <Button asChild variant="accent" size="cta" className="h-[clamp(3rem,6.5svh,3.5rem)] w-full sm:w-auto">
+                <a href="#inscripcion">
+                  {ctaLabels.primary}
+                  <ArrowRightIcon aria-hidden="true" />
+                </a>
+              </Button>
+            ) : (
+              <p className="flex h-[clamp(3rem,6.5svh,3.5rem)] items-center border-l-4 border-terra-orange pr-4 pl-4 text-[1.1875rem] font-extrabold tracking-wide uppercase">
+                {registrationClosed.title}
+              </p>
+            )}
             {/* En celular, link de texto para no sumar otro botón alto; desde sm, botón. */}
             <a
               href={event.programPdf.mobile}

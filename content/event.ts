@@ -113,5 +113,9 @@ export const event = {
       ],
     },
   ] satisfies PartnerGroup[],
-  registrationOpen: true,
+  /**
+   * false = inscripción cerrada: oculta botones, links y formulario, y el servidor rechaza envíos.
+   * Para reabrir, volver a true (cambia todo el sitio).
+   */
+  registrationOpen: false as boolean,
 } as const;

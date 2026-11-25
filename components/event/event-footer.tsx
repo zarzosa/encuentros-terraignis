@@ -1,12 +1,13 @@
 import { PartnerLogo } from "@/components/partners/partner-logo";
 import { event } from "@/content/event";
+import { isLinkAvailable } from "@/content/navigation";
 import { programNotice } from "@/content/program";
 
 const footerLinks = [
   { href: "#programa", label: "Programa" },
   { href: "#inscripcion", label: "Inscripción" },
   { href: "#acompanan", label: "Acompañan" },
-];
+].filter(isLinkAvailable);
 
 export function EventFooter() {
   return (

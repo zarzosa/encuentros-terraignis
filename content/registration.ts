@@ -19,7 +19,14 @@ export const successPath = "/inscripcion/exito";
 /** Versión del texto de consentimiento que se guarda con cada inscripción. Cambiarla si cambia el texto. */
 export const privacyVersion = "2026-10-v1";
 
+/** Textos que se muestran con `event.registrationOpen` en false. */
+export const registrationClosed = {
+  title: "Inscripciones cerradas",
+  text: "Ya no se reciben nuevas inscripciones para el Encuentro.",
+} as const;
+
 export const registrationMessages = {
+  closed: `${registrationClosed.title}. ${registrationClosed.text}`,
   duplicate: "Este correo ya posee una inscripción registrada para el encuentro.",
   error: "No pudimos completar la inscripción. Intentá nuevamente en unos instantes.",
   invalid: "Revisá los campos marcados.",
