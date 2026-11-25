@@ -92,8 +92,11 @@ export const event = {
     mapEmbedUrl:
       "https://www.google.com/maps?q=F%C3%A1brica%20de%20Talentos%2C%20Av.%20Maip%C3%BA%201255%2C%20Ushuaia%2C%20Tierra%20del%20Fuego%2C%20Argentina&z=16&hl=es&output=embed",
   },
-  /** PDF en /public que abre el botón "Ver programa" del hero (pedido de la organización). */
-  dossierUrl: "/docs/dossier-cuencas-maduras.pdf",
+  /** PDFs en /public que abre "Ver programa" en el hero: A4 desde sm, vertical en celular. */
+  programPdf: {
+    desktop: "/docs/programa-cuencas-maduras.pdf",
+    mobile: "/docs/programa-cuencas-maduras-mobile.pdf",
+  },
   organizer: "Terra Ignis Energía S.A.",
   partnerGroups: [
     {
